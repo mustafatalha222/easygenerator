@@ -1,0 +1,20 @@
+{
+  "name": "easygenerator",
+  "version": "1.0.0",
+  "description": "nest-react app created using turbo",
+  "main": "index.js",
+  "scripts": {
+    "test": "turbo run test",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "node apps/api/dist/main"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.13.3"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}

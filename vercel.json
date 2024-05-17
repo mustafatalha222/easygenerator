@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "github": {
+    "enabled": true
+  },
+  "builds": [
+    { "src": "/apps/api/src/main.js", "use": "@vercl/node" },
+    { "src": "/apps/client/dist", "use": "@now/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/apps/api/src/main.js", "methods": ["GET"] }
+  ]
+}
