@@ -8,6 +8,7 @@ import { join } from 'path';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client', 'dist'),
+      exclude: ['api/*'],
     }),
   ],
   controllers: [AppController],
