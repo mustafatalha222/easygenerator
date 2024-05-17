@@ -8,6 +8,6 @@
     { "src": "/apps/client/dist/*", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/apps/api/src/main.ts", "methods": ["GET"] }
+    { "src": "/(.*)", "dest": "/apps/api/src/main.ts", "methods": ["GET"] }
   ]
 }
