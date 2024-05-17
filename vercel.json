@@ -4,7 +4,7 @@
     "enabled": true
   },
   "builds": [
-    { "src": "/apps/api/src/main.js", "use": "@vercl/node" },
+    { "src": "/apps/api/src/main.js", "use": "@vercel/node" },
     { "src": "/apps/client/dist", "use": "@now/static" }
   ],
   "routes": [
