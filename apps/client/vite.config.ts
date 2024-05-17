@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://easygenerator-five.vercel.app/",
+        target: "https://easygenerator-five.vercel.app",
         changeOrigin: true,
       },
     },
