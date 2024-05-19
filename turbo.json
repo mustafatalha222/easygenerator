@@ -3,16 +3,16 @@
   "pipeline": {
     "dev": {
       "cache": false,
-      "dotEnv": [".env.local", ".env"]
+      "dotEnv": [".env", ".env.local"]
     },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
-      "dotEnv": [".env.production", ".env"]
+      "dotEnv": [".env", ".env.local"]
     },
     "start": {
       "dependsOn": ["^build"]
     }
   },
-  "globalDotEnv": [".env.local", ".env"]
+  "globalDotEnv": [".env", ".env.local"]
 }
