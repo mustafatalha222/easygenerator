@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000", // https://easygenerator-five.vercel.app
+        target: "http://localhost:3000", // https://easy-generator.vercel.app/
         changeOrigin: true,
       },
     },

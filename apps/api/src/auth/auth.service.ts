@@ -10,15 +10,15 @@ import { JwtPayload } from 'src/user/interfaces/user.interface';
 import { LoginUserDto } from 'src/user/dto/login-user.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { User } from 'src/user/schemas/user.schema';
-import { UserService } from 'src/user/user.service';
 import { ConfigService } from '@nestjs/config';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
   constructor(
-    private userService: UserService,
+    private readonly userService: UserService,
     private jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
