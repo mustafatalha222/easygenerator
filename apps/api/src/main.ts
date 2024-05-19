@@ -20,8 +20,8 @@ async function bootstrap() {
 
   // Swagger setup
   const config = new DocumentBuilder()
-    .setTitle('EasyGenerator API')
-    .setDescription('EasyGenerator description')
+    .setTitle('Easygenerator API')
+    .setDescription('Easygenerator description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
