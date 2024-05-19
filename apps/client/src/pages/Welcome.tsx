@@ -19,6 +19,7 @@ const Welcome = () => {
     (async () => {
       await apiCall(ENDPOINTS.PROFILE, "GET");
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
