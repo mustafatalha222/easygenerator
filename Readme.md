@@ -52,6 +52,8 @@ npm run build
 npm start
 ```
 
+Now you can visit http://localhost:3000 to see the project.
+
 ### Accessing Swagger Documentation
 
 Swagger documentation for the NestJS API is also added. Just Visit
