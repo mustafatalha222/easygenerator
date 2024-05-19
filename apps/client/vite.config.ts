@@ -10,12 +10,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src/"),
     },
   },
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: "http://localhost:3000", // https://easygenerator-five.vercel.app
-  //       changeOrigin: true,
-  //     },
-  //   },
-  // },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://easygenerator-five.vercel.app", // https://easygenerator-five.vercel.app
+        changeOrigin: true,
+      },
+    },
+  },
 });

@@ -25,7 +25,7 @@ interface ApiResponse<T> {
   ) => Promise<IResponse<T>>;
 }
 
-const baseUrl = import.meta.env.VITE_API_URL;
+const baseUrl = "/api";
 
 const useApiCall = <T>(): ApiResponse<T> => {
   const { handleLogout } = useAuth();
