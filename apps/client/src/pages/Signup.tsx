@@ -12,7 +12,9 @@ import useApiCall from "@/hooks/useApiCall";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineMail } from "react-icons/hi";
 import { ROUTES } from "@/lib/routeConstant";
-import { HiMiniInformationCircle } from "react-icons/hi2";
+import useAuth from "@/hooks/useAuth";
+import { FaHatCowboy } from "react-icons/fa";
+import { ILOGIN } from "@/lib/commonInterface";
 
 const signUpFormSchema = z.object({
   email: emailValidation,
@@ -28,7 +30,8 @@ const defaultSignUp = {
 type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 
 function SignUp() {
-  const { loading, error, apiCall } = useApiCall();
+  const { handleLogin } = useAuth();
+  const { loading, error, apiCall } = useApiCall<ILOGIN>();
   const navigate = useNavigate();
 
   const formOptions = {
@@ -41,12 +44,9 @@ function SignUp() {
     mode: "onChange",
   });
 
-  async function onSubmit(data: SignUpFormValues) {
-    const {
-      body: { token },
-    } = await apiCall(ENDPOINTS.SIGN_UP, "POST", data);
-
-    if (token) return navigate(ROUTES.WELCOME);
+  async function onSubmit(obj: SignUpFormValues) {
+    const { data } = await apiCall(ENDPOINTS.SIGN_UP, "POST", obj);
+    handleLogin(data);
   }
 
   return (
@@ -62,9 +62,7 @@ function SignUp() {
               name="name"
               placeholder="Enter your name"
               control={form.control}
-              rightComponent={
-                <HiMiniInformationCircle size={20} className="text-dimmed" />
-              }
+              rightComponent={<FaHatCowboy size={20} className="text-dimmed" />}
               isSimple={true}
             />
 

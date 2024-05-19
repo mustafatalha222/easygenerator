@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { GET_TOKEN, LOCALSTORAGE } from "@/lib/storage";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/lib/routeConstant";
+import {
+  getToken,
+  getRefreshToken,
+  saveToken,
+  saveRefreshToken,
+} from "@/lib/storage";
+import useAuth from "./useAuth";
+import { ENDPOINTS } from "@/lib/endpoints";
 
-type IResponse = { body: object | null; errors?: { message: string } };
+type IResponse<T> = {
+  data: T | null;
+  error?: string;
+};
+
 interface ApiResponse<T> {
   loading: boolean;
   data: T | null;
@@ -13,11 +22,13 @@ interface ApiResponse<T> {
     method: "GET" | "POST" | "PUT" | "DELETE",
     data?: object,
     options?: RequestInit
-  ) => Promise<IResponse>;
+  ) => Promise<IResponse<T>>;
 }
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const useApiCall = <T>(): ApiResponse<T> => {
-  const navigate = useNavigate();
+  const { handleLogout } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string>("");
@@ -28,22 +39,43 @@ const useApiCall = <T>(): ApiResponse<T> => {
     }, 4000);
   };
 
-  const LogoutUser = () => {
-    localStorage.removeItem(LOCALSTORAGE.TOKEN);
-    navigate(ROUTES.SIGN_IN);
+  const refreshAccessToken = async (): Promise<string> => {
+    try {
+      const refreshToken = getRefreshToken();
+      const response = await fetch(`${baseUrl}${ENDPOINTS.REFRESH_TOKEN}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to refresh token");
+      }
+
+      const data = await response.json();
+      saveToken(data.accessToken);
+      saveRefreshToken(data.refreshToken);
+
+      return data.accessToken;
+    } catch (error) {
+      handleLogout();
+      throw new Error("Session expired. Please log in again.");
+    }
   };
 
   const apiCall = async (
     url: string,
-    method: string,
+    method: "GET" | "POST" | "PUT" | "DELETE",
     data?: object,
     options: RequestInit = {}
-  ): Promise<IResponse> => {
-    let resData = { body: null };
+  ): Promise<IResponse<T>> => {
+    let resData: IResponse<T> = { data: null };
     try {
       setLoading(true);
 
-      const token = GET_TOKEN();
+      let token = getToken();
       const headers: Record<string, string> = {
         ...((options.headers as Record<string, string>) || {}),
         "Content-Type": "application/json",
@@ -59,25 +91,28 @@ const useApiCall = <T>(): ApiResponse<T> => {
       if (["POST", "PUT"].includes(method)) {
         requestOptions.body = JSON.stringify(data);
       }
+      let response = await fetch(`${baseUrl}${url}`, requestOptions);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}${url}`,
-        requestOptions
-      );
-      const responseData = await response.json();
-      if (responseData.errors) {
-        if (responseData.errors.status === 401) LogoutUser();
-        setError(responseData.errors?.message || responseData.errors);
-        clearError();
-      } else {
-        setData(responseData.body);
+      if (token && response.status === 401) {
+        token = await refreshAccessToken();
+        headers.Authorization = `Bearer ${token}`;
+        requestOptions.headers = headers; // update headers in requestOptions
+        response = await fetch(`${baseUrl}${url}`, requestOptions);
       }
-      resData = responseData.body;
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message || "An error occurred");
+      }
+      setData(responseData);
+      resData = { data: responseData };
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
+        resData = { data: null, error: err.message };
       } else {
-        setError("An unknown error occurred");
+        const unknownError = "An unknown error occurred";
+        setError(unknownError);
+        resData = { data: null, error: unknownError };
       }
       clearError();
     } finally {

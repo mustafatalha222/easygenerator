@@ -4,7 +4,7 @@ import "@/index.css";
 import AppRoutes from "@/routes";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <AppRoutes />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AppRoutes />
+  // </React.StrictMode>
 );

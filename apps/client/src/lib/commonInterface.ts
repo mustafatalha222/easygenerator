@@ -11,7 +11,6 @@ export interface FormInputProps<T> {
   showSuccessMsg?: string;
 }
 
-// Exclude type and rightComponent
 export interface FormTextareaProps<T> {
   label: string;
   placeholder?: string;
@@ -20,3 +19,8 @@ export interface FormTextareaProps<T> {
   rows?: number;
   className?: string;
 }
+
+export type ILOGIN = {
+  accessToken: string;
+  refreshToken: string;
+};
