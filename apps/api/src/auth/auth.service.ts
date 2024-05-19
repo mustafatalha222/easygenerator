@@ -18,9 +18,9 @@ export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
   constructor(
-    private readonly userService: UserService,
     private jwtService: JwtService,
     private readonly configService: ConfigService,
+    private userService: UserService,
   ) {}
 
   async signup(createUserDto: CreateUserDto) {
