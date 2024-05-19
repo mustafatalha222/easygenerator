@@ -7,7 +7,5 @@
     { "src": "/apps/api/src/main.ts", "use": "@vercel/node" },
     { "src": "/apps/client/dist/*", "use": "@now/static" }
   ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/apps/api/src/main.ts", "methods": ["GET"] }
-  ]
+  "routes": [{ "src": "/(.*)", "dest": "/apps/api/src/main.ts" }]
 }
