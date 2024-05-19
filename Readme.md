@@ -29,15 +29,28 @@ To run the project locally, follow these steps:
 2. Navigate to the project directory in your terminal.
 3. Run `npm install` to install the necessary dependencies.
 
-### Running Both Projects Simultaneously
+### Running Projects Simultaneously - On Dev
 
 To run both the frontend and backend simultaneously, you can use the following command:
 
 ```bash
-npm dev
+npm run dev
 ```
 
-This command will start both the React frontend and the NestJS backend. The React app will run on port http://localhost:5173/, and the NestJS API will run on port http://localhost:3000.
+This command will start both the React frontend and the NestJS backend. The React app will run on port http://localhost:5173/, and the NestJS API will run on port http://localhost:3000 | http://localhost:3000/api.
+
+### Note - Development Run
+
+Nest will take a bit longer to run as compare to react vite app so need to wait a little longer for the nest app to run in development mode.
+
+### Running in Production Mode
+
+To run the project as a production build, use the following commands:
+
+```bash
+npm run build
+npm start
+```
 
 ### Accessing Swagger Documentation
 
