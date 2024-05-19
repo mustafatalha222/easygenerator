@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Injectable,
   UnauthorizedException,
@@ -11,7 +12,6 @@ import { LoginUserDto } from 'src/user/dto/login-user.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { User } from 'src/user/schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
-import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -20,23 +20,23 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private readonly configService: ConfigService,
-    private userService: UserService,
+    // private readonly userService: UserService,
   ) {}
 
   async signup(createUserDto: CreateUserDto) {
-    const newUser = await this.userService.createUser(createUserDto);
-    return this.createToken(newUser);
+    // const newUser = await this.userService.createUser(createUserDto);
+    // return this.createToken(newUser);
   }
 
   async signin(loginUserDto: LoginUserDto) {
     const { email, password } = loginUserDto;
-    const user = await this.userService.getUserByEmail(email);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      this.logger.error(`Invalid login attempt for user ${email}`);
-      throw new UnauthorizedException('Invalid credentials!');
-    }
-    this.logger.log(`User with ${user._id} signed in successfully`);
-    return this.createToken(user);
+    // const user = await this.userService.getUserByEmail(email);
+    // if (!user || !(await bcrypt.compare(password, user.password))) {
+    //   this.logger.error(`Invalid login attempt for user ${email}`);
+    //   throw new UnauthorizedException('Invalid credentials!');
+    // }
+    // this.logger.log(`User with ${user._id} signed in successfully`);
+    // return this.createToken(user);
   }
 
   private async createToken(user: User) {
@@ -51,20 +51,20 @@ export class AuthService {
   }
 
   async refreshToken(token: string) {
-    try {
-      const payload = await this.jwtService.verifyAsync(token, {
-        secret: this.configService.get<string>('jwtSecret'),
-      });
-      const user = await this.userService.getUserById(payload._id);
-      if (!user) {
-        this.logger.error('User not found during token refresh');
-        throw new NotFoundException('User not found!');
-      }
-      this.logger.log(`User ${user._id} refreshed token successfully`);
-      return this.createToken(user);
-    } catch (e) {
-      this.logger.error('Invalid refresh token', e.stack);
-      throw new UnauthorizedException('Invalid refresh token!');
-    }
+    //   try {
+    //     const payload = await this.jwtService.verifyAsync(token, {
+    //       secret: this.configService.get<string>('jwtSecret'),
+    //     });
+    //     const user = await this.userService.getUserById(payload._id);
+    //     if (!user) {
+    //       this.logger.error('User not found during token refresh');
+    //       throw new NotFoundException('User not found!');
+    //     }
+    //     this.logger.log(`User ${user._id} refreshed token successfully`);
+    //     return this.createToken(user);
+    //   } catch (e) {
+    //     this.logger.error('Invalid refresh token', e.stack);
+    //     throw new UnauthorizedException('Invalid refresh token!');
+    //   }
   }
 }
