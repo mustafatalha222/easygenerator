@@ -41,7 +41,8 @@ This command will start both the React frontend and the NestJS backend. The Reac
 
 ### Note - Development Run
 
-Nest will take a bit longer to run as compare to react vite app so need to wait a little longer for the nest app to run in development mode.
+- Nest will take a bit longer to run as compare to react vite app so need to wait a little longer for the nest app to run in development mode.
+- Additionally, I have not implemented email confirmation, OTP and forgetPassword flows as they were not specified in the provided documentation
 
 ### Running in Production Mode
 
