@@ -6,12 +6,12 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { JwtPayload } from 'src/user/interfaces/user.interface';
-import { LoginUserDto } from 'src/user/dto/login-user.dto';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { User } from 'src/user/schemas/user.schema';
+import { JwtPayload } from '../user/interfaces/user.interface';
+import { LoginUserDto } from '../user/dto/login-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { User } from '../user/schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
