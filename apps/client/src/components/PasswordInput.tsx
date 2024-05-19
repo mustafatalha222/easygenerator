@@ -8,8 +8,6 @@ const PasswordInput = <T,>({
   name,
   placeholder,
   control,
-  isSimple,
-  showSuccessMsg,
 }: FormInputProps<T>) => {
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -24,18 +22,18 @@ const PasswordInput = <T,>({
       placeholder={placeholder}
       control={control}
       type={hidePassword ? "password" : "text"}
-      isSimple={isSimple}
-      showSuccessMsg={showSuccessMsg}
       rightComponent={
         hidePassword ? (
           <IoEyeOffOutline
             size={20}
+            data-testid="eye-off-icon"
             onClick={updateHide}
             className="text-dimmed"
           />
         ) : (
           <IoEyeOutline
             size={20}
+            data-testid="eye-icon"
             onClick={updateHide}
             className="text-dimmed"
           />

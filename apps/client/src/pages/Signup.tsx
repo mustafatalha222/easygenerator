@@ -63,7 +63,6 @@ function SignUp() {
               placeholder="Enter your name"
               control={form.control}
               rightComponent={<FaHatCowboy size={20} className="text-dimmed" />}
-              isSimple={true}
             />
 
             <FormInput<SignUpFormValues>
@@ -74,7 +73,6 @@ function SignUp() {
               rightComponent={
                 <HiOutlineMail size={20} className="text-dimmed" />
               }
-              isSimple={true}
             />
 
             <PasswordInput<SignUpFormValues>
@@ -82,7 +80,6 @@ function SignUp() {
               name="password"
               placeholder="Enter your Password"
               control={form.control}
-              isSimple={true}
             />
           </section>
 

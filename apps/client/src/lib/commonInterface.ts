@@ -7,7 +7,6 @@ export interface FormInputProps<T> {
   rightComponent?: React.ReactNode;
   type?: string;
   className?: string;
-  isSimple?: boolean;
   showSuccessMsg?: string;
 }
 

@@ -61,7 +61,6 @@ function SignIn() {
               rightComponent={
                 <HiOutlineMail size={20} className="text-dimmed" />
               }
-              isSimple={true}
             />
 
             <PasswordInput<SignInFormValues>
@@ -69,7 +68,6 @@ function SignIn() {
               name="password"
               placeholder="Enter your Password"
               control={form.control}
-              isSimple={true}
             />
           </section>
 
