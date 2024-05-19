@@ -44,6 +44,10 @@ This command will start both the React frontend and the NestJS backend. The Reac
 Swagger documentation for the NestJS API is also added. Just Visit
 http://localhost:3000/swagger
 
+### Environment Variables
+
+The environment variables are included in the repository for your reference. I will remove this in a future for security purposes.
+
 ### Contact
 
 In case of any issues, please contact:
